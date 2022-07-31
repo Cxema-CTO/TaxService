@@ -1,0 +1,49 @@
+html, body, section {
+    height: 100%;
+    margin: 0 auto;
+    padding: 0;
+    font-family: roboto, sans-serif;
+    /*font-size: 14px;*/
+}
+
+body{
+    background-color: #f1f3fb;
+}
+form {
+    display: flex;
+    justify-content: center;
+}
+.container {
+    width: 320px;
+    padding: 25px;
+    background-color: rgba(255, 255, 255, 0);
+}
+button {
+    background-color: #263b5d;
+    padding: 12px 20px;
+    width: 100%;
+    margin-top: 8px;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+button:hover {
+    opacity: 0.7;
+}
+input[type=text], input[type=password] {
+    width: 100%;
+    margin: 8px 0;
+    padding: 12px 20px;
+    display: inline-block;
+    border: 2px solid #ffffff;
+    box-sizing: border-box;
+}
+input[type=checkbox]{
+    margin-top: 8px;
+}
+#loginFormLabel{
+    margin-bottom: 8px;
+    text-align: center;
+    font-size: x-large;
+    font-weight: bold;
+}
