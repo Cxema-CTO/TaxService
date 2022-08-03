@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -12,20 +12,24 @@
     <jsp:include page="header.jsp"/>
 </head>
 
+<%--   бікоз - вибір мови у хедері   --%>
+<fmt:setLocale value="${sessionScope.language}"/>
+<fmt:setBundle basename="language"/>
 
 <body>
 <br/>
 <a href="hello-servlet">Hello Servlet</a>
 
+${sessionScope.language}
 
-<form method="get">
+<form>
     <div class="container">
-        <div id = "loginFormLabel">Log in</div>
-        <input type="text" placeholder="Username" name="username" required>
-        <input type="password" placeholder="Password" name="password" required>
-        <button type="submit">Submit</button>
-        <input type="checkbox"> Remember me
-        <button type="button" class="cancelbtn">New user</button>
+        <div id="loginFormLabel"><fmt:message key="title.login"/></div>
+        <input type="text" placeholder=<fmt:message key="username"/> name="username" required>
+        <input type="password" placeholder=<fmt:message key="password"/> name="password" required>
+        <button type="submit"><fmt:message key="submit"/></button>
+        <input type="checkbox"> <fmt:message key="rememberMe"/>
+        <button type="button" class="cancelbtn"><fmt:message key="newUser"/></button>
     </div>
 </form>
 </body>

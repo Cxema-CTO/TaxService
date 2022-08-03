@@ -30,5 +30,5 @@
 </style>
 
 <div class="footer">
-   <div id="webmaster">©webmaster</div>
+   <div id="webmaster">Inspector (login: inspector, password: inspector) ©webmaster</div>
 </div>
