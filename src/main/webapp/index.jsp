@@ -1,3 +1,7 @@
+<%@ page import="com.example.taxservice.entity.User" %>
+<%@ page import="com.example.taxservice.dao.UserDAO" %>
+<%@ page import="java.sql.SQLException" %>
+
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -16,23 +20,22 @@
 <fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="language"/>
 
+
 <body>
-<br/>
-<a href="hello-servlet">Hello Servlet</a>
-
-${sessionScope.language}
-
-<form>
-    <div class="container">
-        <div id="loginFormLabel"><fmt:message key="title.login"/></div>
-        <input type="text" placeholder=<fmt:message key="username"/> name="username" required>
-        <input type="password" placeholder=<fmt:message key="password"/> name="password" required>
-        <button type="submit"><fmt:message key="submit"/></button>
-        <input type="checkbox"> <fmt:message key="rememberMe"/>
-        <button type="button" class="cancelbtn"><fmt:message key="newUser"/></button>
-    </div>
-</form>
+<jsp:include page="login.jsp"/>
 </body>
+
+
+<%
+    //    Boolean checkUser;
+//    User user = UserDAO.getUserByLogin("inspector");
+//    System.out.println(user);
+//    try {
+//        UserDAO.createNewUser("Vasia");
+//    } catch (SQLException e) {
+//        throw new RuntimeException(e);
+//    }
+%>
 
 
 <footer>

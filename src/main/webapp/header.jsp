@@ -13,7 +13,8 @@
 <title><fmt:message key="title.tax_service"/></title>
 
 
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+<link rel="shortcut icon" href="ADD/favicon.ico" type="image/x-icon"/>
+
 <div class="header">
     <a href="index.jsp"><h1><fmt:message key="title.tax_service"/></h1>
     </a>
@@ -32,6 +33,8 @@
 <%----%>
 <%----%>
 <%----%>
+
+
 <style>
     .header {
         display: flex;
