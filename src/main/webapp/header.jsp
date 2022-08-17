@@ -13,10 +13,10 @@
 <title><fmt:message key="title.tax_service"/></title>
 
 
-<link rel="shortcut icon" href="ADD/favicon.ico" type="image/x-icon"/>
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/favicon.ico" type="image/x-icon"/>
 
 <div class="header">
-    <a href="index.jsp"><h1><fmt:message key="title.tax_service"/></h1>
+    <a href="${pageContext.request.contextPath}/index.jsp"><h1><fmt:message key="title.tax_service"/></h1>
     </a>
     <div>
         <div class="langButton" id="langButtonUA">
@@ -42,27 +42,9 @@
         justify-content: space-between;
         padding-left: 24px;
         height: 100px;
-        background: url("ADD/backgroundSmall.png");
+        background: url("${pageContext.request.contextPath}/assets/backgroundSmall.png");
         color: white;
         text-align: center;
-    }
-
-    #langButton {
-        background-color: white;
-        padding: 6px 12px;
-        width: 72px;
-        margin-right: 24px;
-        color: #263b5d;
-        border: none;
-        cursor: pointer;
-        font-weight: bolder;
-        transition: all 0.3s ease;
-    }
-
-    #langButton:hover {
-        background-color: #ff8c00;
-        color: white;
-        transition: all 0.3s ease;
     }
 
     .langButton {
@@ -74,17 +56,17 @@
         color: white;
         padding: 6px 16px;
         font-size: medium;
-        text-shadow: 0 0 8px #0b1d1d, 0 0 12px #0b1d1d;
+        text-shadow: 0 0 8px #263b5d, 0 0 12px #263b5d;
         font-weight: bold;
         text-decoration: none;
     }
 
     #langButtonUA {
-        background: url('ADD/flagUA.png') no-repeat center center;
+        background: url('${pageContext.request.contextPath}/assets/flagUA.png') no-repeat center center;
     }
 
     #langButtonUK {
-        background: url('ADD/flagUK.png') no-repeat center center;
+        background: url('${pageContext.request.contextPath}/assets/flagUK.png') no-repeat center center;
         background-size: cover;
     }
 </style>

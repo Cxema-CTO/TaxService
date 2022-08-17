@@ -10,19 +10,21 @@
 
 <style>
     .footer {
+
         width: 100%;
         margin-top: 12px;
         display: inline-flex;
         align-items: center;
         justify-content: end;
-        background: url("ADD/backgroundSmall.png");
+        background: url("assets/backgroundSmall.png");
         color: white;
         text-align: center;
         font-size: small;
-        position: absolute;
+        position: fixed;
         bottom: 0;
     }
-    #webmaster{
+
+    #webmaster {
         padding: 8px;
     }
 
@@ -30,5 +32,5 @@
 </style>
 
 <div class="footer">
-   <div id="webmaster">Inspector (login: inspector, password: inspector) ©webmaster</div>
+    <div id="webmaster">Inspector (login: inspector, password: inspector) ©webmaster</div>
 </div>

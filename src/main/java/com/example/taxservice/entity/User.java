@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class User {
     private int id;
-    private String login;
+    private String userName;
     private String password;
     private boolean isInspector;
     private boolean isLegal;
@@ -17,12 +17,12 @@ public class User {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -53,7 +53,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", login='" + login + '\'' +
+                ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", isInspector=" + isInspector +
                 ", isLegal=" + isLegal +
@@ -65,11 +65,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && isInspector == user.isInspector && isLegal == user.isLegal && Objects.equals(login, user.login) && Objects.equals(password, user.password);
+        return id == user.id && isInspector == user.isInspector && isLegal == user.isLegal && Objects.equals(userName, user.userName) && Objects.equals(password, user.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, login, password, isInspector, isLegal);
+        return Objects.hash(id, userName, password, isInspector, isLegal);
     }
 }

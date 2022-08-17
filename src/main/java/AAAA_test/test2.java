@@ -17,11 +17,10 @@ public class test2 {
             System.out.println("Connected to PostgreSQL database!");
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM tb_users");
-
             User user = null;
             while (resultSet.next()) {
-                //System.out.println(resultSet.getString("login") + resultSet.getString("password"));
-                user = UserDAO.getUserByLogin(resultSet.getString("login"));
+                System.out.println(resultSet.getString("user_name") +"___"+ resultSet.getString("password"));
+                user = UserDAO.getUserFromDB(resultSet.getString("user_name"));
                 System.out.println(user);
             }
 

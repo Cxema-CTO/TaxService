@@ -22,15 +22,13 @@
 
 
 <body>
-<c:if test="${sessionScope.role == 'guest' || sessionScope.role == null}">
-    <jsp:include page="login.jsp"/>
-</c:if>
-<c:if test="${sessionScope.role == 'user'}">
-    <jsp:include page="user.jsp"/>
-</c:if>
-<c:if test="${sessionScope.role == 'inspector'}">
-    <jsp:include page="inspector.jsp"/>
-</c:if>
+<div class="errorModal">
+    <div>
+        <h1 class="inCenter"><fmt:message key="error"/></h1>
+        <h3 class="inCenter"><fmt:message key="${sessionScope.error_message}"/></h3>
+        <button class="buttonError" onclick="history.back()" type="button"><fmt:message key="back"/></button>
+    </div>
+</div>
 </body>
 
 
