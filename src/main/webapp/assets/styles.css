@@ -1,5 +1,6 @@
 html, body, section {
     height: 100%;
+    max-width: 1024px;
     margin: 0 auto;
     padding: 0;
     font-family: roboto, sans-serif;
@@ -132,6 +133,7 @@ input[type=checkbox]:checked {
 
 
 .workspace {
+    background: gainsboro;
     width: 100%;
     height: auto;
     display: flex;
@@ -142,14 +144,50 @@ input[type=checkbox]:checked {
 }
 
 .left_sidebar {
-    background: gainsboro;
+    background: lightgray;
     width: 180px;
     min-width: 180px;
     padding: 8px;
 }
 
-.content{
+.content {
     background: bisque;
     padding: 8px;
-    /*width: auto;*/
+    width: auto;
+    margin: 0 auto;
 }
+
+#paginationButtonView {
+    display: flex;
+    justify-content: center;
+}
+
+#paginationButtonBefore, #paginationButtonNext {
+    margin: 12px;
+    padding: 0;
+    display: inline-block;
+    width: 72px;
+    height: 24px;
+}
+
+/*table*/
+th, td {
+    min-width: 84px;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #04AA6D;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: coral;
+}
+
+/*end table*/

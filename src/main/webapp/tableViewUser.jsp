@@ -18,9 +18,21 @@
             <td>${i.id}</td>
             <td>${i.userName}</td>
             <td>${i.password}</td>
-<%--            <td>${i.isInspector}</td>--%>
-<%--            <td>${i.isLegal}</td>--%>
+                <%--            https://stackoverflow.com/questions/6854866/how-to-get-boolean-property-with-expression-language--%>
+                <%--            <td>${i.isInspector()}</td>--%>
+                <%--            <td>${i.isLegal()}</td>--%>
+            <td>${i.inspector}</td>
+            <td>${i.legal}</td>
         </tr>
     </c:forEach>
 </table>
+
+<c:if test="${pagination=='yes'}">
+    <div id="paginationButtonView">
+    <button type="submit" id="paginationButtonBefore">←</button>
+    <button type="submit" id="paginationButtonNext">→</button>
+    </div>
+    <h3>total <c:out value="${size}"/> users</h3>
+</c:if>
+
 

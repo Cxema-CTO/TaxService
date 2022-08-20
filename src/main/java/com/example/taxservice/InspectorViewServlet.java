@@ -2,17 +2,21 @@ package com.example.taxservice;
 
 import com.example.taxservice.dao.UserDAO;
 import com.example.taxservice.entity.User;
-import com.google.gson.Gson;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+
 
 @WebServlet(name = "InspectorViewServlet", value = "/inspector")
 public class InspectorViewServlet extends HttpServlet {
+    static int currentPage = 0;
+    int totalPages = 0;
+    List<User> users = UserDAO.getAllUsers();
+    List<User> sendUsers = new ArrayList<>();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
@@ -21,17 +25,56 @@ public class InspectorViewServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String receiveRequest = request.getParameter("sendRequest");
-        if(Objects.equals(receiveRequest, "users")){
-            List<User> users = UserDAO.getAllUsers();
+        if (Objects.equals(receiveRequest, "users")) {
+            request.setAttribute("view", "users");
+            if (users.size() > 10) {
+                totalPages = users.size() / 10;
+                request.setAttribute("size", users.size());
+                request.setAttribute("pagination", "yes");
+                pagination(request);
+            } else {
+                request.setAttribute("pagination", "no");
+                sendUsers.addAll(users);
+            }
 
-            request.setAttribute("users",users);
-            request.getRequestDispatcher("tableView.jsp").forward(request,response);
-
-//            Gson gson = new Gson();
-//            String answer = gson.toJson(users);
-//            response.getWriter().write(answer);
-//            response.getWriter().flush();
-//            response.getWriter().close();
+//            System.out.println(totalPages);
+            request.setAttribute("users", sendUsers);
+            request.getRequestDispatcher("tableViewUser.jsp").forward(request, response);
         }
     }
+
+    private void pagination(HttpServletRequest request) {
+        String receiveRequest = request.getParameter("page");
+        if (Objects.equals(receiveRequest, "current")) {
+            preparationListSendUsers(currentPage);
+        }
+        if (Objects.equals(receiveRequest, "next")) {
+            currentPage++;
+            if (currentPage >= totalPages) currentPage = totalPages;
+            preparationListSendUsers(currentPage);
+        }
+        if (Objects.equals(receiveRequest, "before")) {
+            currentPage--;
+            if (currentPage < 0) currentPage = 0;
+            preparationListSendUsers(currentPage);
+        }
+    }
+
+    private void preparationListSendUsers(int currentPage) {
+        sendUsers.clear();
+        if (users.size() < 11) {
+            sendUsers.addAll(users);
+        } else {
+            if (currentPage >= totalPages) {
+                for (int i = (currentPage * 10); i < users.size(); i++) {
+                    sendUsers.add(users.get(i));
+                }
+            } else {
+                for (int i = (currentPage * 10); i < 10 + (currentPage * 10); i++) {
+                    sendUsers.add(users.get(i));
+                }
+            }
+        }
+    }
+    //end
 }

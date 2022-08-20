@@ -36,7 +36,8 @@ public class UserDAO {
                 User user = getUser(resultSet);
                 userList.add(user);
             }
-            userList.sort(Comparator.comparing(User::getUserName));
+//            userList.sort(Comparator.comparing(User::getUserName));
+            userList.sort(Comparator.comparing(User::getId));
         } catch (SQLException exception) {
             LOGGER.error(exception, exception);
         } finally {

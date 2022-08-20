@@ -10,8 +10,8 @@
 
 <style>
     .footer {
-
-        width: 100%;
+        width:100%;
+        max-width: 1024px;
         margin-top: 12px;
         display: inline-flex;
         align-items: center;
