@@ -41,7 +41,7 @@
         align-items: center;
         justify-content: space-between;
         padding-left: 24px;
-        height: 100px;
+        /*height: 100px;*/
         background: url("${pageContext.request.contextPath}/assets/backgroundSmall.png");
         color: white;
         text-align: center;

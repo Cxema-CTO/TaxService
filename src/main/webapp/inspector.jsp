@@ -19,6 +19,9 @@
     <div class="left_sidebar">
         <button id="users" type="submit"><fmt:message key="users"/></button>
         <button type="submit"><fmt:message key="reports"/></button>
+        <button onclick="location.href='${pageContext.request.contextPath}/registration.jsp'" type="button"><fmt:message
+                key="newUser"/></button>
+
         <%--<button type="submit"><fmt:message key="submit"/></button>--%>
     </div>
     <div class="content" id="content"></div>
@@ -26,15 +29,21 @@
 
 
 <script defer type="text/javascript">
+    //for tableViewUser.jsp
     let users = document.getElementById("users").addEventListener("click", sendRequestUsers);
     let content = document.getElementById("content");
     let url = "inspector?sendRequest=";
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", url + "users&page=current", true);
+    if (sessionStorage.getItem("lastURL") == null) {
+        xhr.open("GET", url + "users&page=current", true);
+    } else {
+        xhr.open("GET", sessionStorage.getItem("lastURL"))
+    }
     xhr.send();
 
     function sendRequestUsers() {
         xhr.open("GET", url + "users&page=current", true);
+        sessionStorage.setItem("lastURL", url + "users&page=current")
         xhr.send();
     }
 
@@ -45,28 +54,46 @@
                 console.log("чуднінькО");
                 content.innerHTML = xhr.responseText;
                 addPaginationButtonListener();
-
+                addBackButtonListener()
             } else {
                 console.error(xhr.statusText + " error");
             }
         }
     }
 
+    function getUserFromTable() {
+        console.log(this.children[1].innerText)
+        let getUser = this.children[1].innerText
+        xhr.open("GET", url + "user&userName=" + getUser, true);
+        sessionStorage.setItem("lastURL", url + "user&userName=" + getUser)
+        xhr.send();
+    }
+
     function addPaginationButtonListener() {
-        setTimeout(function () { //древній волохатий костиль
+        setTimeout(function () { //древній волохатий костиль "debounce"
             try {
                 document.getElementById("paginationButtonBefore").addEventListener("click", beforeButtonClick);
-                document.getElementById("paginationButtonBefore").style = "styles";
             } catch {
             }
             try {
                 document.getElementById("paginationButtonNext").addEventListener("click", nextButtonClick);
-                document.getElementById("paginationButtonNext").style = "styles";
             } catch {
             }
-            document.addEventListener("keydown", arrowKeyClick)
-            window.addEventListener('wheel', mouseWheel)
+
+            try {
+                document.addEventListener("keydown", arrowKeyClick);
+                let elements = document.getElementsByClassName("rows");
+                for (let i = 0; i < elements.length; i++) {
+                    elements[i].addEventListener("click", getUserFromTable);
+                }
+            } catch {
+            }
         }, 33)
+        try {
+            // window.addEventListener('wheel', mouseWheel);
+            document.getElementById("tableHeader").addEventListener('wheel', mouseWheel);
+        } catch {
+        }
     }
 
     function mouseWheel(e) {
@@ -88,4 +115,22 @@
         xhr.open("GET", url + "users&page=next", true);
         xhr.send();
     }
+
+    //for tableViewUsers.jsp
+
+    //for tableViewUser.jsp
+    function addBackButtonListener() {
+        try {
+            document.getElementById("back").addEventListener("click", backToIndex)
+        } catch {
+            // console.log("backButtonDon'tReceiveListener")
+        }
+    }
+
+    function backToIndex() {
+        console.log("op")
+        sessionStorage.setItem("lastURL", url + "users&page=current")
+        location.href='${pageContext.request.contextPath}/index.jsp'
+    }
+    //for tableViewUser.jsp
 </script>

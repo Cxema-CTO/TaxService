@@ -5,34 +5,8 @@
 <fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="language"/>
 
-<table>
-    <tr>
-        <th>id</th>
-        <th>name</th>
-        <th>pass</th>
-        <th>inspector</th>
-        <th>legal</th>
-    </tr>
-    <c:forEach items="${users}" var="i">
-        <tr>
-            <td>${i.id}</td>
-            <td>${i.userName}</td>
-            <td>${i.password}</td>
-                <%--            https://stackoverflow.com/questions/6854866/how-to-get-boolean-property-with-expression-language--%>
-                <%--            <td>${i.isInspector()}</td>--%>
-                <%--            <td>${i.isLegal()}</td>--%>
-            <td>${i.inspector}</td>
-            <td>${i.legal}</td>
-        </tr>
-    </c:forEach>
-</table>
+<h3><fmt:message key="username"/>: <c:out value="${user}"/></h3>
 
-<c:if test="${pagination=='yes'}">
-    <div id="paginationButtonView">
-    <button type="submit" id="paginationButtonBefore">←</button>
-    <button type="submit" id="paginationButtonNext">→</button>
-    </div>
-    <h3>total <c:out value="${size}"/> users</h3>
-</c:if>
-
-
+<%--<button class="buttonError" onclick="history.back()" type="button"><fmt:message key="back"/></button>--%>
+<%--<button onclick="location.href='${pageContext.request.contextPath}/index.jsp'" type="button"><fmt:message key="back"/></button>--%>
+<button id="back" type="button"><fmt:message key="back"/></button>

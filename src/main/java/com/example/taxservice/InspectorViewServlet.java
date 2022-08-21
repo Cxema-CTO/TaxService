@@ -14,8 +14,9 @@ import java.util.*;
 public class InspectorViewServlet extends HttpServlet {
     static int currentPage = 0;
     int totalPages = 0;
-    List<User> users = UserDAO.getAllUsers();
+    List<User> users = null;
     List<User> sendUsers = new ArrayList<>();
+    User sendUser = new User();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -24,12 +25,26 @@ public class InspectorViewServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        users = UserDAO.getAllUsers();
+        request.setAttribute("size", users.size());
         String receiveRequest = request.getParameter("sendRequest");
+
+
+        if (Objects.equals(receiveRequest, "user")) {
+            String receiveGetUser = request.getParameter("userName");
+            sendUser = UserDAO.getUserFromDB(receiveGetUser);
+            request.setAttribute("user", sendUser);
+//            System.out.println(sendUser+ " "+receiveGetUser);
+            request.getRequestDispatcher("tableViewUser.jsp").forward(request, response);
+        }
+
         if (Objects.equals(receiveRequest, "users")) {
             request.setAttribute("view", "users");
             if (users.size() > 10) {
                 totalPages = users.size() / 10;
-                request.setAttribute("size", users.size());
+//                System.out.println(sendUsers.size() % 10);// test delete!!!!
+                // щоб не показувало наступну чисту сторінку у таблиці
+//                if (sendUsers.size() % 10 == 0 && totalPages > 0) totalPages--;
                 request.setAttribute("pagination", "yes");
                 pagination(request);
             } else {
@@ -39,7 +54,7 @@ public class InspectorViewServlet extends HttpServlet {
 
 //            System.out.println(totalPages);
             request.setAttribute("users", sendUsers);
-            request.getRequestDispatcher("tableViewUser.jsp").forward(request, response);
+            request.getRequestDispatcher("tableViewUsers.jsp").forward(request, response);
         }
     }
 
@@ -62,7 +77,7 @@ public class InspectorViewServlet extends HttpServlet {
 
     private void preparationListSendUsers(int currentPage) {
         sendUsers.clear();
-        if (users.size() < 11) {
+        if (users.size() < 10) {
             sendUsers.addAll(users);
         } else {
             if (currentPage >= totalPages) {
@@ -75,6 +90,7 @@ public class InspectorViewServlet extends HttpServlet {
                 }
             }
         }
+//        System.out.println("fUckinDruckenTable");
     }
     //end
 }
