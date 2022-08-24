@@ -10,13 +10,14 @@
     <div class="userName">${sessionScope.user_name}</div>
     <a class="userTop" href="exit"><img id="userTopCloseButton" src="assets/exit.png"></a>
 </div>
+
+<div class="workspace">
 <div class="left_sidebar">
-<button type="submit"><fmt:message key="submit"/></button>
-<button type="submit"><fmt:message key="submit"/></button>
-<button type="submit"><fmt:message key="submit"/></button>
-<button type="submit"><fmt:message key="submit"/></button>
-<button type="submit"><fmt:message key="submit"/></button>
-<button type="submit"><fmt:message key="submit"/></button>
-<button type="submit"><fmt:message key="submit"/></button>
-<button type="submit"><fmt:message key="submit"/></button>
+<button type="submit"><fmt:message key="add"/></button>
+<button type="submit"><fmt:message key="edit"/></button>
+<button type="submit"><fmt:message key="delete"/></button>
+</div>
+
+<div class="content" id="content"></div>
+</div>
 </div>

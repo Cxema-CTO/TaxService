@@ -1,5 +1,3 @@
-<%@ page import="com.google.gson.Gson" %>
-<%@ page import="com.example.taxservice.entity.User" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -18,7 +16,7 @@
 <div class="workspace">
     <div class="left_sidebar">
         <button id="users" type="submit"><fmt:message key="users"/></button>
-        <button type="submit"><fmt:message key="reports"/></button>
+        <button id="reports" type="submit"><fmt:message key="reports"/></button>
         <button onclick="location.href='${pageContext.request.contextPath}/registration.jsp'" type="button"><fmt:message
                 key="newUser"/></button>
 
@@ -31,15 +29,22 @@
 <script defer type="text/javascript">
     //for tableViewUser.jsp
     let users = document.getElementById("users").addEventListener("click", sendRequestUsers);
+    let reports = document.getElementById("reports").addEventListener("click", sendRequestReports);
     let content = document.getElementById("content");
     let url = "inspector?sendRequest=";
     let xhr = new XMLHttpRequest();
     if (sessionStorage.getItem("lastURL") == null) {
         xhr.open("GET", url + "users&page=current", true);
     } else {
-        xhr.open("GET", sessionStorage.getItem("lastURL"))
+        xhr.open("GET", sessionStorage.getItem("lastURL")+"&page=current")
     }
     xhr.send();
+
+    function sendRequestReports() {
+        xhr.open("GET", url + "reports&page=current", true);
+        sessionStorage.setItem("lastURL", url + "reports")
+        xhr.send();
+    }
 
     function sendRequestUsers() {
         xhr.open("GET", url + "users&page=current", true);
@@ -54,7 +59,7 @@
                 console.log("чуднінькО");
                 content.innerHTML = xhr.responseText;
                 addPaginationButtonListener();
-                addBackButtonListener()
+                // addBackButtonListener();
             } else {
                 console.error(xhr.statusText + " error");
             }
@@ -107,30 +112,48 @@
     }
 
     function beforeButtonClick() {
-        xhr.open("GET", url + "users&page=before", true);
+        let a;
+        try {
+            a = document.getElementById("tableReports");
+        } catch {
+        }
+        if (a !== null) {
+            xhr.open("GET", url + "reports&page=before", true);
+        } else {
+            xhr.open("GET", url + "users&page=before", true);
+        }
         xhr.send();
     }
 
     function nextButtonClick() {
-        xhr.open("GET", url + "users&page=next", true);
+        let a;
+        try {
+            a = document.getElementById("tableReports");
+        } catch {
+        }
+        if (a !== null) {
+            xhr.open("GET", url + "reports&page=next", true);
+        } else {
+            xhr.open("GET", url + "users&page=next", true);
+        }
         xhr.send();
     }
 
     //for tableViewUsers.jsp
-
     //for tableViewUser.jsp
-    function addBackButtonListener() {
-        try {
-            document.getElementById("back").addEventListener("click", backToIndex)
-        } catch {
-            // console.log("backButtonDon'tReceiveListener")
-        }
-    }
+    <%--function addBackButtonListener() {--%>
+    <%--    try {--%>
+    <%--        document.getElementById("back").addEventListener("click", backToIndex)--%>
+    <%--    } catch {--%>
+    <%--        // console.log("backButtonDon'tReceiveListener")--%>
+    <%--    }--%>
+    <%--}--%>
 
-    function backToIndex() {
-        console.log("op")
-        sessionStorage.setItem("lastURL", url + "users&page=current")
-        location.href='${pageContext.request.contextPath}/index.jsp'
-    }
+    <%--function backToIndex() {--%>
+    <%--    console.log("op")--%>
+    <%--    sessionStorage.setItem("lastURL", url + "users&page=current")--%>
+    <%--    location.href='${pageContext.request.contextPath}/index.jsp'--%>
+    <%--}--%>
     //for tableViewUser.jsp
+
 </script>

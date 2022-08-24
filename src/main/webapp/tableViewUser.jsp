@@ -7,6 +7,8 @@
 
 <h3><fmt:message key="username"/>: <c:out value="${user}"/></h3>
 
+
 <%--<button class="buttonError" onclick="history.back()" type="button"><fmt:message key="back"/></button>--%>
 <%--<button onclick="location.href='${pageContext.request.contextPath}/index.jsp'" type="button"><fmt:message key="back"/></button>--%>
-<button id="back" type="button"><fmt:message key="back"/></button>
+<%--js for button in inspector.jsp--%>
+<%--<button id="back" type="button"><fmt:message key="back"/></button>--%>

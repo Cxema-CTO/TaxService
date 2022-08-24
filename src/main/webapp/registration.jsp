@@ -1,7 +1,3 @@
-<%@ page import="com.example.taxservice.entity.User" %>
-<%@ page import="com.example.taxservice.dao.UserDAO" %>
-<%@ page import="java.sql.SQLException" %>
-
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -27,15 +23,16 @@
 <form action="create_user" method="post">
     <div class="container" id="registration_form">
         <div id="loginFormLabel"><fmt:message key="title.registration"/></div>
-        <input id="username" type="text" maxlength="30" placeholder=
+        <input id="username" type="text" minlength="3" maxlength="30" placeholder=
         <fmt:message key="username"/> name="username" required>
-        <input id="password" type="password" maxlength="30" placeholder=
+        <input id="password" type="password" minlength="4" maxlength="30" placeholder=
         <fmt:message key="password"/> name="password" required>
         <input id="confirm_password" type="password" maxlength="30" placeholder=
         <fmt:message key="confirm_password"/> name="confirm_password" required>
         <input type="checkbox" name="is_legal"> <fmt:message key="legal"/>
         <%--                <img  class="viewPassword" src="assets/view.png"></img>--%>
         <button type="submit"><fmt:message key="submit"/></button>
+        <button onclick="location.href='${pageContext.request.contextPath}/index.jsp'" type="button"><fmt:message key="back"/></button>
 
     </div>
 </form>
