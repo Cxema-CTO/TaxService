@@ -27,7 +27,7 @@
             <td>${i.submissionDate}</td>
             <td>${i.type}</td>
             <td>${i.send}</td>
-                <%--            https://stackoverflow.com/questions/6854866/how-to-get-boolean-property-with-expression-language--%>
+                <%-- https://stackoverflow.com/questions/6854866/how-to-get-boolean-property-with-expression-language--%>
         </tr>
     </c:forEach>
 </table>

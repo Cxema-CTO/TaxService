@@ -12,13 +12,15 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import static com.example.taxservice.dao.UserDAO.assertHasUserInDBbyUserName;
+
 public class ReportDAO {
 
     private static final Logger LOGGER = Logger.getLogger(UserDAO.class);
     //
     private static final String GET_ALL_REPORTS = "SELECT * FROM tb_reports";
-    //    private static final String GET_USER_ALL_REPORTS = "SELECT * FROM tb_reports";
-//    private static final String GET_ONE_REPORT_BY_ID = "SELECT * FROM tb_reports WHERE id = ?";
+    private static final String GET_USER_ALL_REPORTS = "SELECT * FROM tb_reports WHERE user_name = ?";
+    //    private static final String GET_ONE_REPORT_BY_ID = "SELECT * FROM tb_reports WHERE id = ?";
 //    private static final String DELETE_ONE_REPORT_BY_ID = "SELECT * FROM tb_reports WHERE id = ?";
 //    private static final String DELETE_USER_ALL_REPORTS = "SELECT * FROM tb_reports WHERE id = ?";
 //    private static final String GET_ONE_BY_USERNAME = "SELECT * FROM tb_reports WHERE user_name = ?";
@@ -42,6 +44,27 @@ public class ReportDAO {
             LOGGER.error(exception, exception);
         } finally {
             connectionPool.releaseConnection(connection);
+        }
+        return reportList;
+    }
+
+    public static List<Report> getAllUserReports(String userName) {
+        connection = connectionPool.getConnection();
+        List<Report> reportList = new ArrayList<>();
+        if (assertHasUserInDBbyUserName(userName)) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_ALL_REPORTS)) {
+                preparedStatement.setString(1, userName);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    Report report = getReport(resultSet);
+                    reportList.add(report);
+                }
+                reportList.sort(Comparator.comparing(Report::getId));
+            } catch (SQLException exception) {
+                LOGGER.error(exception, exception);
+            } finally {
+                connectionPool.releaseConnection(connection);
+            }
         }
         return reportList;
     }

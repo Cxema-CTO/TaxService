@@ -39,7 +39,19 @@ public class InspectorViewServlet extends HttpServlet {
             String receiveGetUser = request.getParameter("userName");
             sendUser = UserDAO.getUserFromDB(receiveGetUser);
             request.setAttribute("user", sendUser);
-//            System.out.println(sendUser+ " "+receiveGetUser);
+            sendReports.clear();
+            reports = ReportDAO.getAllUserReports(sendUser.getUserName());
+            request.setAttribute("sizeReports", reports.size());
+            request.setAttribute("view", "reports");
+            if (reports.size() > 10) {
+                totalPages = reports.size() / 10;
+                request.setAttribute("pagination", "yes");
+                paginationReports(request);
+            } else {
+                request.setAttribute("pagination", "no");
+                sendReports.addAll(reports);
+            }
+            request.setAttribute("reports", sendReports);
             request.getRequestDispatcher("tableViewUser.jsp").forward(request, response);
         }
 
@@ -51,17 +63,12 @@ public class InspectorViewServlet extends HttpServlet {
             request.setAttribute("view", "users");
             if (users.size() > 10) {
                 totalPages = users.size() / 10;
-//                System.out.println(sendUsers.size() % 10);// test delete!!!!
-                // щоб не показувало наступну чисту сторінку у таблиці
-//                if (sendUsers.size() % 10 == 0 && totalPages > 0) totalPages--;
                 request.setAttribute("pagination", "yes");
                 paginationUsers(request);
             } else {
                 request.setAttribute("pagination", "no");
                 sendUsers.addAll(users);
             }
-
-//            System.out.println(totalPages);
             request.setAttribute("users", sendUsers);
             request.getRequestDispatcher("tableViewUsers.jsp").forward(request, response);
         }
@@ -102,6 +109,7 @@ public class InspectorViewServlet extends HttpServlet {
             preparationListSendUser(currentPage);
         }
     }
+
     private void preparationListSendUser(int currentPage) {
         sendUsers.clear();
         if (users.size() < 10) {
@@ -136,6 +144,7 @@ public class InspectorViewServlet extends HttpServlet {
             preparationListSendReport(currentPage);
         }
     }
+
     private void preparationListSendReport(int currentPage) {
 
         sendReports.clear();
@@ -153,5 +162,7 @@ public class InspectorViewServlet extends HttpServlet {
             }
         }
     }
+
+
     //end
 }

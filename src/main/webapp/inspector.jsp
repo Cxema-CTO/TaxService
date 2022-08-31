@@ -27,7 +27,6 @@
 
 
 <script defer type="text/javascript">
-    //for tableViewUser.jsp
     let users = document.getElementById("users").addEventListener("click", sendRequestUsers);
     let reports = document.getElementById("reports").addEventListener("click", sendRequestReports);
     let content = document.getElementById("content");
@@ -36,7 +35,7 @@
     if (sessionStorage.getItem("lastURL") == null) {
         xhr.open("GET", url + "users&page=current", true);
     } else {
-        xhr.open("GET", sessionStorage.getItem("lastURL")+"&page=current")
+        xhr.open("GET", sessionStorage.getItem("lastURL") + "&page=current")
     }
     xhr.send();
 
@@ -66,7 +65,15 @@
         }
     }
 
+
     function getUserFromTable() {
+        console.log(this.children[1].innerText)
+        let getUser = this.children[1].innerText
+        xhr.open("GET", url + "user&userName=" + getUser, true);
+        sessionStorage.setItem("lastURL", url + "user&userName=" + getUser)
+        xhr.send();
+    }
+    function getUserReportFromTable() {
         console.log(this.children[1].innerText)
         let getUser = this.children[1].innerText
         xhr.open("GET", url + "user&userName=" + getUser, true);
@@ -89,8 +96,13 @@
                 document.addEventListener("keydown", arrowKeyClick);
                 let elements = document.getElementsByClassName("rows");
                 for (let i = 0; i < elements.length; i++) {
-                    elements[i].addEventListener("click", getUserFromTable);
+                    if (document.contains(document.getElementById("tableUsers")) === true) {
+                        elements[i].addEventListener("click", getUserFromTable);
+                    }else{
+                        elements[i].addEventListener("click", getUserReportFromTable);
+                    }
                 }
+
             } catch {
             }
         }, 33)

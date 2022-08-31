@@ -6,7 +6,7 @@
 <fmt:setBundle basename="language"/>
 
 
-<table id="table">
+<table id="tableUsers">
     <tr id="tableHeader">
         <th>id</th>
         <th>name</th>
