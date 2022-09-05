@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ResourceBundleManager">
     <file url="file://$PROJECT_DIR$/src/main/resources/language.properties" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/language_ukr.properties" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/assets/language_ukr.properties" />
     <custom-resource-bundle>
       <file value="file://$PROJECT_DIR$/src/main/resources/language.properties" />
-      <file value="file://$PROJECT_DIR$/src/main/resources/language_ukr.properties" />
+      <file value="file://$PROJECT_DIR$/src/main/webapp/assets/language_ukr.properties" />
       <base-name>language</base-name>
     </custom-resource-bundle>
   </component>

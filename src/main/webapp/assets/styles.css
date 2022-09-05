@@ -5,6 +5,7 @@ html, body, section {
     padding: 0;
     font-family: roboto, sans-serif;
     background: #ababab;
+    /*overflow: hidden;*/
     /*font-size: 14px;*/
 }
 
