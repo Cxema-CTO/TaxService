@@ -2,6 +2,7 @@ package com.example.taxservice;
 
 import com.example.taxservice.dao.UserDAO;
 import com.example.taxservice.entity.User;
+import com.example.taxservice.password.EncodePassword;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -24,7 +25,7 @@ public class LoginServlet extends HttpServlet {
         User user = UserDAO.getUserFromDB(userName);
 
         if (user != null) {
-            if (Objects.equals(user.getUserName(), userName) && Objects.equals(user.getPassword(), password)) {
+            if (Objects.equals(user.getUserName(), userName) && Objects.equals(user.getPassword(), EncodePassword.getHashPassword(password))) {
                 request.getSession().setAttribute("user_name", user.getUserName());
                 if (user.isInspector()) {
                     request.getSession().setAttribute("role", "inspector");
@@ -33,7 +34,7 @@ public class LoginServlet extends HttpServlet {
                 }
                 response.sendRedirect("index.jsp");
             }
-            if (Objects.equals(user.getUserName(), userName) && !Objects.equals(user.getPassword(), password)) {
+            if (Objects.equals(user.getUserName(), userName) && !Objects.equals(user.getPassword(), EncodePassword.getHashPassword(password))) {
                 request.getSession().setAttribute("error_message", "error.incorrect_password");
                 response.sendRedirect("error.jsp");
             }

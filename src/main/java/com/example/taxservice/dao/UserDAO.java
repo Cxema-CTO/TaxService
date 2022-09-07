@@ -3,6 +3,7 @@ package com.example.taxservice.dao;
 
 import com.example.taxservice.connectionpool.ConnectionPool;
 import com.example.taxservice.entity.User;
+import com.example.taxservice.password.EncodePassword;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -71,7 +72,7 @@ public class UserDAO {
         if (assertHasUserInDBbyUserName(userName)) {
             connection = connectionPool.getConnection();
             try (PreparedStatement ps = connection.prepareStatement(UPDATE_USER_PASSWORD)) {
-                ps.setString(1, newPassword);
+                ps.setString(1, EncodePassword.getHashPassword(newPassword));
                 ps.setString(2, userName);
                 ps.executeUpdate();
             } catch (SQLException exception) {
@@ -101,7 +102,7 @@ public class UserDAO {
         if (!assertHasUserInDBbyUserName(userName)) {
             PreparedStatement ps = connection.prepareStatement(CREATE_NEW_USER);
             ps.setString(1, userName);
-            ps.setString(2, password);
+            ps.setString(2, EncodePassword.getHashPassword(password));
             ps.setBoolean(3, isLegal);
             ps.executeUpdate();
         } else {

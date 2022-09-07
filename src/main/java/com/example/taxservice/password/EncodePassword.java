@@ -18,7 +18,7 @@ public class EncodePassword {
     private static final int ZERO_ARRAY = 0;
     private static final int OFFSET = 0;
 
-    public String getHashPassword (String input) {
+    public static String getHashPassword(String input) {
 
         MessageDigest messageDigest;
         byte[] byteDigest = new byte[ZERO_ARRAY];
