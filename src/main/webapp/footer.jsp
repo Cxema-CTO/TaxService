@@ -16,7 +16,7 @@
         display: inline-flex;
         align-items: center;
         justify-content: end;
-        background: url("assets/backgroundSmall.png");
+        background: url("${pageContext.request.contextPath}/assets/backgroundSmall.png");
         color: white;
         text-align: center;
         font-size: small;
@@ -32,5 +32,5 @@
 </style>
 
 <div class="footer">
-    <div id="webmaster">Inspector (login: inspector, password: inspector) ©webmaster</div>
+    <div id="webmaster">Inspector (login: inspector, password: inspector) Users (password: pass) ©webmaster</div>
 </div>

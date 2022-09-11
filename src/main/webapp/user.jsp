@@ -16,7 +16,18 @@
         <button type="submit"><fmt:message key="add"/></button>
         <button type="submit"><fmt:message key="edit"/></button>
         <button type="submit"><fmt:message key="delete"/></button>
+
+
+        <%--        TEST--%>
+        <%--        TEST--%>
+        <%--        TEST--%>
+<%--        <div class="inCenter"><a href="${pageContext.request.contextPath}/controller/show_test" type="button"><h2>TEST</h2></a></div>--%>
+        <div class="inCenter"><a href="${pageContext.request.contextPath}/controller/show_test" type="button"><h2>TEST</h2></a></div>
     </div>
+    <%--ENDTEST--%>
+    <%--ENDTEST--%>
+    <%--ENDTEST--%>
+
 
     <div class="content" id="content"></div>
 </div>

@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
+<!DOCTYPE html>
 <html>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/styles.css">
@@ -17,20 +18,6 @@
 
 
 <body>
-<div class="errorModal">
-    <div>
-        <h1 class="inCenter"><fmt:message key="error"/></h1>
-        <h3 class="inCenter"><fmt:message key="something_wrong"/></h3>
-        <div class="inCenter">
-            <img src="${pageContext.request.contextPath}/assets/500.gif" height="128px">
-        </div>
-        <button class="buttonError" onclick="history.back()" type="button"><fmt:message key="back"/></button>
-    </div>
-</div>
+
 </body>
-
-<footer>
-    <jsp:include page="footer.jsp"/>
-</footer>
-
 </html>

@@ -22,7 +22,8 @@
         <h1 class="inCenter"><fmt:message key="error"/></h1>
         <h3 class="inCenter"><fmt:message key="page_not_found"/></h3>
         <div class="inCenter">
-            <img src="assets/bolt.jpg" height="128px" width="128px">
+<%--            url("${pageContext.request.contextPath}/assets/backgroundSmall.png");--%>
+            <img src="${pageContext.request.contextPath}/assets/bolt.jpg" height="128px" width="128px">
         </div>
         <button class="buttonError" onclick="history.back()" type="button"><fmt:message key="back"/></button>
     </div>
