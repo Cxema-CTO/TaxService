@@ -20,7 +20,7 @@
 
 <body>
 
-<form action="create_user" method="post">
+<form action="${pageContext.request.contextPath}/controller?open=REGISTRATION_NEW_USER" method="post">
     <div class="container" id="registration_form">
         <div id="loginFormLabel"><fmt:message key="title.registration"/></div>
         <input id="username" type="text" minlength="3" maxlength="30" placeholder=

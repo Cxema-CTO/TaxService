@@ -5,7 +5,7 @@
 <fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="language"/>
 
-<form action="LoginServlet" method="post">
+<form action="${pageContext.request.contextPath}/controller?open=LOGIN" method="post">
     <div class="container">
         <div id="loginFormLabel"><fmt:message key="title.login"/></div>
         <input type="text" maxlength="30" placeholder=
@@ -14,6 +14,6 @@
         <fmt:message key="password"/> name="password" required>
         <button type="submit"><fmt:message key="submit"/></button>
         <%--        <input type="checkbox"> <fmt:message key="rememberMe"/>--%>
-        <button onclick="location.href='${pageContext.request.contextPath}/registration.jsp'" type="button"><fmt:message key="newUser"/></button>
+        <button onclick="location.href='${pageContext.request.contextPath}/controller?open=REGISTRATION_PAGE'" type="button"><fmt:message key="newUser"/></button>
     </div>
 </form>

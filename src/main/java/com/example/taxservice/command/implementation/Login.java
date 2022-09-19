@@ -1,28 +1,21 @@
-package com.example.taxservice;
+package com.example.taxservice.command.implementation;
 
+import com.example.taxservice.command.OpenPage;
 import com.example.taxservice.dao.UserDAO;
 import com.example.taxservice.entity.User;
 import com.example.taxservice.password.EncodePassword;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
-import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 
-
-@WebServlet(name = "LoginServlet", value = "/LoginServlet")
-public class LoginServlet extends HttpServlet {
+public class Login implements OpenPage {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         String userName = request.getParameter("username");
         String password = request.getParameter("password");
         User user = UserDAO.getUserFromDB(userName);
+        String whichJSPtoRedirect = "";
 
         if (user != null) {
             if (Objects.equals(user.getUserName(), userName) && Objects.equals(user.getPassword(), EncodePassword.getHashPassword(password))) {
@@ -32,15 +25,17 @@ public class LoginServlet extends HttpServlet {
                 } else {
                     request.getSession().setAttribute("role", "user");
                 }
-                response.sendRedirect("index.jsp");
+                whichJSPtoRedirect = "index.jsp";
             }
             if (Objects.equals(user.getUserName(), userName) && !Objects.equals(user.getPassword(), EncodePassword.getHashPassword(password))) {
                 request.getSession().setAttribute("error_message", "error.incorrect_password");
-                response.sendRedirect("error.jsp");
+                whichJSPtoRedirect = "error.jsp";
             }
         } else {
             request.getSession().setAttribute("error_message", "error.don't_find_user");
-            response.sendRedirect("error.jsp");
+            whichJSPtoRedirect = "error.jsp";
         }
+
+        return whichJSPtoRedirect;
     }
 }

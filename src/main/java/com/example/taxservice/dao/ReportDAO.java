@@ -2,6 +2,7 @@ package com.example.taxservice.dao;
 
 import com.example.taxservice.connectionpool.ConnectionPool;
 import com.example.taxservice.entity.Report;
+import com.example.taxservice.password.EncodePassword;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -20,14 +21,26 @@ public class ReportDAO {
     //
     private static final String GET_ALL_REPORTS = "SELECT * FROM tb_reports";
     private static final String GET_USER_ALL_REPORTS = "SELECT * FROM tb_reports WHERE user_name = ?";
+    private static final String CREATE_NEW_REPORT = "INSERT INTO tb_reports (user_name, report_content, type) VALUES (?,?,?)";
+
     //    private static final String GET_ONE_REPORT_BY_ID = "SELECT * FROM tb_reports WHERE id = ?";
 //    private static final String DELETE_ONE_REPORT_BY_ID = "SELECT * FROM tb_reports WHERE id = ?";
 //    private static final String DELETE_USER_ALL_REPORTS = "SELECT * FROM tb_reports WHERE id = ?";
 //    private static final String GET_ONE_BY_USERNAME = "SELECT * FROM tb_reports WHERE user_name = ?";
-//    private static final String CREATE_NEW_REPORT = "INSERT INTO tb_users (user_name, password,is_legal) VALUES (?,?,?)";
-//
+
+
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static Connection connection;
+
+    public static void createNewReportInDB(String userName, String content, int type) throws SQLException {
+            connection = connectionPool.getConnection();
+            PreparedStatement ps;
+            ps = connection.prepareStatement(CREATE_NEW_REPORT);
+            ps.setString(1, userName);
+            ps.setString(2, content);
+            ps.setInt(3, type);
+            ps.executeUpdate();
+    }
 
     public static List<Report> getAllReports() {
         connection = connectionPool.getConnection();

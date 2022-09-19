@@ -5,6 +5,7 @@
 <fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="language"/>
 
+<h3><fmt:message key="reports"/>:</h3>
 
 <table id="tableReports">
     <tr id="tableHeader">

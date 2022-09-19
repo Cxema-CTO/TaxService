@@ -29,7 +29,12 @@ form {
 .container {
     width: 320px;
     padding: 25px;
-    background-color: rgba(255, 255, 255, 0);
+    margin: 32px;
+    /*background-color: rgba(255, 255, 255, 0);*/
+    color: white;
+    text-shadow: 0 0 4px darkgray, 0 0 16px darkgray;
+    background-color: lightgray;
+    border-radius: 8px;
 }
 
 button {
@@ -58,7 +63,7 @@ button:hover {
     transition: all 0.3s ease;
 }
 
-input[type=text], input[type=password] {
+input[type=text], input[type=password], textarea {
     width: 100%;
     margin: 8px 0;
     padding: 12px 20px;
@@ -67,12 +72,20 @@ input[type=text], input[type=password] {
     box-sizing: border-box;
 }
 
+textarea {
+    height: 144px;
+}
+
 
 input[type=checkbox] {
     margin-top: 8px;
 }
 
 input[type=checkbox]:checked {
+    accent-color: #263b5d;
+}
+
+input[type=radio]:checked {
     accent-color: #263b5d;
 }
 
@@ -97,6 +110,20 @@ input[type=checkbox]:checked {
     padding: 16px 32px;
     min-width: 320px;
     min-height: 160px;
+}
+
+.hideModal {
+    visibility: hidden;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background-color: rgba(40, 40, 40, 0.2);
+    z-index: 100000;
+    transition: all 0s ease;
+    backdrop-filter: blur(5px);
 }
 
 
@@ -194,8 +221,12 @@ th:hover {
     cursor: all-scroll;
 }
 
+tr {
+    background-color: #f1f1f1;
+}
+
 tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #e3e3e3;
 }
 
 tr:hover {

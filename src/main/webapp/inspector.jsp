@@ -9,7 +9,7 @@
 <div class="userTop">
     <img class="userIcon" src="assets/inspectorLogo.png" alt="user">
     <div class="userName">${sessionScope.user_name}</div>
-    <a class="userTop" href="exit"><img id="userTopCloseButton" src="assets/exit.png" alt="exit"></a>
+    <a class="userTop" href="${pageContext.request.contextPath}/controller?open=EXIT"><img id="userTopCloseButton" src="assets/exit.png" alt="exit"></a>
 </div>
 
 
@@ -17,10 +17,8 @@
     <div class="left_sidebar">
         <button id="users" type="submit"><fmt:message key="users"/></button>
         <button id="reports" type="submit"><fmt:message key="reports"/></button>
-        <button onclick="location.href='${pageContext.request.contextPath}/registration.jsp'" type="button"><fmt:message
+        <button onclick="location.href='${pageContext.request.contextPath}/controller?open=REGISTRATION_PAGE'" type="button"><fmt:message
                 key="newUser"/></button>
-
-        <%--<button type="submit"><fmt:message key="submit"/></button>--%>
     </div>
     <div class="content" id="content"></div>
 </div>

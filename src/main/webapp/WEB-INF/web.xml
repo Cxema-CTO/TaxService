@@ -10,18 +10,18 @@
         <error-code>404</error-code>
         <location>/404.jsp</location>
     </error-page>
-<!--    <error-page>-->
-<!--        <error-code>500</error-code>-->
-<!--        <location>/500.jsp</location>-->
-<!--    </error-page>-->
+    <error-page>
+        <error-code>500</error-code>
+        <location>/500.jsp</location>
+    </error-page>
 
     <servlet>
         <servlet-name>Controller</servlet-name>
-        <servlet-class>com.example.taxservice.controller.AppController</servlet-class>
+        <servlet-class>com.example.taxservice.controller.FrontController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
-        <url-pattern>/controller/*</url-pattern>
+        <url-pattern>/controller</url-pattern>
     </servlet-mapping>
 
 </web-app>
