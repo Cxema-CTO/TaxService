@@ -1,8 +1,6 @@
 package com.example.taxservice.command.implementation;
 
 import com.example.taxservice.command.OpenPage;
-import com.example.taxservice.controller.FrontController;
-import com.example.taxservice.controller.MethodsOfRedirect;
 import com.example.taxservice.dao.ReportDAO;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +20,7 @@ public class DBAddReport implements OpenPage {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
         return "index.jsp";
     }
 }

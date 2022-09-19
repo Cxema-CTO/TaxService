@@ -11,21 +11,22 @@ import java.io.IOException;
 
 public class FrontController extends HttpServlet {
 
+    public static boolean methodOfRedirectForward = false;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        String request = handleRequest(req, resp);
-        MethodsOfRedirect methods = methods();
-        if (methods == MethodsOfRedirect.REDIRECT) resp.sendRedirect(request);
-//        if (methods == MethodsOfRedirect.FORWARD) req.getRequestDispatcher(request).forward(req, resp);
-        resp.sendRedirect(request);
+        String location = handleRequest(req, resp);
+        if (!methodOfRedirectForward) resp.sendRedirect(location);
+        if (methodOfRedirectForward) req.getRequestDispatcher(location).forward(req, resp);
+        methodOfRedirectForward = false;
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        String request = handleRequest(req, resp);
-//        if (methods == MethodsOfRedirect.REDIRECT) resp.sendRedirect(request);
-//        if (methods == MethodsOfRedirect.FORWARD) req.getRequestDispatcher(request).forward(req, resp);
-        resp.sendRedirect(request);
+        String location = handleRequest(req, resp);
+        if (!methodOfRedirectForward) resp.sendRedirect(location);
+        if (methodOfRedirectForward) req.getRequestDispatcher(location).forward(req, resp);
+        methodOfRedirectForward = false;
     }
 
     private String handleRequest(HttpServletRequest req, HttpServletResponse resp) {
@@ -33,8 +34,5 @@ public class FrontController extends HttpServlet {
         return openPage.execute(req, resp);
     }
 
-    private  MethodsOfRedirect methods(){
-//        MethodsOfRedirect mor = OpenPage;
-        return MethodsOfRedirect.REDIRECT;
-    }
+
 }

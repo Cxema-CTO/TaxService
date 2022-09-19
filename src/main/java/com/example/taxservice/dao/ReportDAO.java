@@ -2,6 +2,7 @@ package com.example.taxservice.dao;
 
 import com.example.taxservice.connectionpool.ConnectionPool;
 import com.example.taxservice.entity.Report;
+import com.example.taxservice.entity.User;
 import com.example.taxservice.password.EncodePassword;
 import org.apache.log4j.Logger;
 
@@ -20,26 +21,42 @@ public class ReportDAO {
     private static final Logger LOGGER = Logger.getLogger(UserDAO.class);
     //
     private static final String GET_ALL_REPORTS = "SELECT * FROM tb_reports";
+    private static final String GET_ONE_REPORT_BY_ID = "SELECT * FROM tb_reports WHERE id = ?";
     private static final String GET_USER_ALL_REPORTS = "SELECT * FROM tb_reports WHERE user_name = ?";
     private static final String CREATE_NEW_REPORT = "INSERT INTO tb_reports (user_name, report_content, type) VALUES (?,?,?)";
+    private static final String DELETE_ONE_REPORT_BY_ID = "DELETE FROM tb_reports WHERE id = ?";
 
     //    private static final String GET_ONE_REPORT_BY_ID = "SELECT * FROM tb_reports WHERE id = ?";
-//    private static final String DELETE_ONE_REPORT_BY_ID = "SELECT * FROM tb_reports WHERE id = ?";
-//    private static final String DELETE_USER_ALL_REPORTS = "SELECT * FROM tb_reports WHERE id = ?";
-//    private static final String GET_ONE_BY_USERNAME = "SELECT * FROM tb_reports WHERE user_name = ?";
+    //    private static final String DELETE_ONE_REPORT_BY_ID = "SELECT * FROM tb_reports WHERE id = ?";
+    //    private static final String DELETE_USER_ALL_REPORTS = "SELECT * FROM tb_reports WHERE id = ?";
+    //    private static final String GET_ONE_BY_USERNAME = "SELECT * FROM tb_reports WHERE user_name = ?";
 
 
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static Connection connection;
 
-    public static void createNewReportInDB(String userName, String content, int type) throws SQLException {
+    public static void deleteReportInDB(int id) {
+        if (assertHasReportInDBbyId(id)) {
             connection = connectionPool.getConnection();
-            PreparedStatement ps;
-            ps = connection.prepareStatement(CREATE_NEW_REPORT);
-            ps.setString(1, userName);
-            ps.setString(2, content);
-            ps.setInt(3, type);
-            ps.executeUpdate();
+            try (PreparedStatement ps = connection.prepareStatement(DELETE_ONE_REPORT_BY_ID)) {
+                ps.setInt(1, id);
+                ps.executeUpdate();
+            } catch (SQLException exception) {
+                LOGGER.error(exception, exception);
+            } finally {
+                connectionPool.releaseConnection(connection);
+            }
+        }
+    }
+
+    public static void createNewReportInDB(String userName, String content, int type) throws SQLException {
+        connection = connectionPool.getConnection();
+        PreparedStatement ps;
+        ps = connection.prepareStatement(CREATE_NEW_REPORT);
+        ps.setString(1, userName);
+        ps.setString(2, content);
+        ps.setInt(3, type);
+        ps.executeUpdate();
     }
 
     public static List<Report> getAllReports() {
@@ -82,6 +99,33 @@ public class ReportDAO {
         return reportList;
     }
 
+    public static Boolean assertHasReportInDBbyId(int id) {
+        Report checkReportInDB = ReportDAO.getReportFromDB(id);
+        boolean answer = false;
+        if (checkReportInDB != null) {
+            if (checkReportInDB.getId() == id) {
+                answer = true;
+            }
+        }
+        return answer;
+    }
+
+    private static Report getReportFromDB(int id) {
+        connection = connectionPool.getConnection();
+        Report report = null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_ONE_REPORT_BY_ID)) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                report = getReport(resultSet);
+            }
+        } catch (SQLException exception) {
+            LOGGER.error(exception, exception);
+        } finally {
+            connectionPool.releaseConnection(connection);
+        }
+        return report;
+    }
 
     private static Report getReport(ResultSet resultSet) throws SQLException {
         Report report = new Report();

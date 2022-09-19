@@ -232,6 +232,7 @@ tr:nth-child(even) {
 tr:hover {
     background-color: coral;
     cursor: pointer;
+    color: white;
 }
 
 /*end table*/
